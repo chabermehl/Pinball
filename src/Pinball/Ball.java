@@ -9,6 +9,7 @@ public class Ball {
         this.x = x;
         this.y = y;
     }
+
     public void reset() {
 
     }
