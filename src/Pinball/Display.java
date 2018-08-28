@@ -43,7 +43,7 @@ public class Display {
     }
 
     public void setResetButton(boolean state) {
-        System.out.println("hello world");
+
     }
 
     public void setScoreValue(int value) {
