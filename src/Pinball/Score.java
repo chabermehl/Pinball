@@ -15,7 +15,7 @@ public class Score {
         return this.score;
     }
 
-    public void incrementBy(int value) {
-        this.score += value;
+    public int incrementBy(int value) {
+        return this.score += value;
     }
 }
