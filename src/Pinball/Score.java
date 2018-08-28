@@ -7,6 +7,7 @@ public class Score {
     public Score (int score){
         this.score = score;
     }
+
     public void reset() {
         this.score = 0;
     }
