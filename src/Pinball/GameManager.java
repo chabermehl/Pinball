@@ -76,10 +76,9 @@ public class GameManager extends Application {
     }
 
     private void fillBoard(int rows, int cols) {
-        int randrows = (int)(Math.random()*(rows-1));
-        int randcols = (int)(Math.random()*(cols-1));
-
         for (int i = 0; i < 3; i++) {
+            int randrows = (int)(Math.random()*(rows-1));
+            int randcols = (int)(Math.random()*(cols-1));
             board[randrows][randcols].setState(true);
         }
     }
