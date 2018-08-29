@@ -59,6 +59,13 @@ public class GameManager extends Application {
                 gameTile.add(boardTile[i][j], j, i);
             }
         }
+
+        gameTile.setAlignment(Pos.CENTER);
+        rootPane.setCenter(gameTile);
+        gameScene = new Scene(rootPane);
+        window.setScene(gameScene);
+        window.setFullScreen(true);
+
     }
 
     private void fillBoard(int rows, int cols) {
@@ -72,8 +79,8 @@ public class GameManager extends Application {
 
     private void setBoard(int rows, int cols) {
         System.out.println(rows);
-        for (int i = 0; i < cols-1; i++) {
-            for (int j = 0; j < rows-1; j++) {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
                 board[i][j].setState(false);
             }
         }
