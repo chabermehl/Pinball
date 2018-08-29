@@ -70,7 +70,7 @@ public class GameManager extends Application {
         rootPane.setCenter(gameTile);
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
-        window.setFullScreen(true);
+        window.setFullScreen(false);
         window.show();
 
     }
@@ -99,7 +99,7 @@ public class GameManager extends Application {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Button btn = new Button();
-                btn.setPrefSize(25,25);
+                btn.setPrefSize(50,50);
                 if(board[i][j].getState()) {
                     btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
                 } else {
