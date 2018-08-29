@@ -5,7 +5,6 @@ public class Tile {
     private boolean state;
 
     public Tile(boolean state) {
-
         this.state = state;
     }
 
