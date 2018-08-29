@@ -3,6 +3,7 @@
     <words>
       <w>randcols</w>
       <w>randrows</w>
+      <w>totalscore</w>
     </words>
   </dictionary>
 </component>
