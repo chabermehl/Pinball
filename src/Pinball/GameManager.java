@@ -78,8 +78,10 @@ public class GameManager extends Application {
         while (randCount < 3) {
             int randrows = (int)(Math.random()*(rows-1));
             int randcols = (int)(Math.random()*(cols-1));
-            board[randrows][randcols].setState(true);
-            randCount++;
+            if(!board[randrows][randcols].getState()) {
+                board[randrows][randcols].setState(true);
+                randCount++;
+            }
         }
     }
 
