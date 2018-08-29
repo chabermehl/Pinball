@@ -99,7 +99,7 @@ public class GameManager extends Application {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Button btn = new Button();
-                btn.setPrefSize(100,100);
+                btn.setPrefSize(25,25);
                 if(board[i][j].getState()) {
                     btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
                 } else {
