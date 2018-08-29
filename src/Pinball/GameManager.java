@@ -40,8 +40,6 @@ public class GameManager extends Application {
         BorderPane rootPane = new BorderPane();
         GridPane gameTile = new GridPane();
         timer = new Timer();
-        int rowrow = display.getBoardRows();
-        System.out.println(rowrow);
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
@@ -84,7 +82,6 @@ public class GameManager extends Application {
     }
 
     private void setBoard(int rows, int cols) {
-        System.out.println(rows);
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 Tile tile = new Tile(false);
