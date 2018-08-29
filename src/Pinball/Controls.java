@@ -2,6 +2,8 @@ package Pinball;
 
 public class Controls {
 
+    private boolean mode;
+
     public Controls(boolean mode) {
         this.mode = mode;
     }
