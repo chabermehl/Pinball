@@ -34,15 +34,14 @@ public class GameManager extends Application {
         gameController();
     }
 
-    private void startScene() {
-        BorderPane startLayout = new BorderPane();
-    }
 
     private void gameController() {
         Scene gameScene;
         BorderPane rootPane = new BorderPane();
         GridPane gameTile = new GridPane();
         timer = new Timer();
+        int rowrow = display.getBoardRows();
+        System.out.println(rowrow);
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
@@ -72,8 +71,9 @@ public class GameManager extends Application {
     }
 
     private void setBoard(int rows, int cols) {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        System.out.println(rows);
+        for (int i = 0; i < cols-1; i++) {
+            for (int j = 0; j < rows-1; j++) {
                 board[i][j].setState(false);
             }
         }
