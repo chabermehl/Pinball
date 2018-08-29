@@ -60,6 +60,12 @@ public class GameManager extends Application {
             }
         }
 
+        buttonsbois.getChildren().add(reset);
+        buttonsbois.getChildren().add(totalscore);
+        buttonsbois.getChildren().add(play);
+        buttonsbois.setAlignment(Pos.BOTTOM_CENTER);
+        rootPane.setBottom(buttonsbois);
+
         gameTile.setAlignment(Pos.CENTER);
         rootPane.setCenter(gameTile);
         gameScene = new Scene(rootPane);
