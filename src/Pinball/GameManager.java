@@ -74,10 +74,12 @@ public class GameManager extends Application {
     }
 
     private void fillBoard(int rows, int cols) {
-        for (int i = 0; i < 3; i++) {
+        int randCount = 0;
+        while (randCount < 3) {
             int randrows = (int)(Math.random()*(rows-1));
             int randcols = (int)(Math.random()*(cols-1));
             board[randrows][randcols].setState(true);
+            randCount++;
         }
     }
 
