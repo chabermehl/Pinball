@@ -3,16 +3,16 @@ package Pinball;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import javafx.animation.AnimationTimer;
+
+import java.util.Timer;
 
 public class GameManager extends Application {
-
 
 
     private Stage window;
@@ -76,9 +76,9 @@ public class GameManager extends Application {
     private void fillBoard(int rows, int cols) {
         int randCount = 0;
         while (randCount < 3) {
-            int randrows = (int)(Math.random()*(rows-1));
-            int randcols = (int)(Math.random()*(cols-1));
-            if(!board[randrows][randcols].getState()) {
+            int randrows = (int) (Math.random() * (rows - 1));
+            int randcols = (int) (Math.random() * (cols - 1));
+            if (!board[randrows][randcols].getState()) {
                 board[randrows][randcols].setState(true);
                 randCount++;
             }
@@ -99,8 +99,8 @@ public class GameManager extends Application {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Button btn = new Button();
-                btn.setPrefSize(50,50);
-                if(board[i][j].getState()) {
+                btn.setPrefSize(50, 50);
+                if (board[i][j].getState()) {
                     btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
                 } else {
                     btn.setStyle("-fx-background-color: blue;" + "-fx-border-color: black;");
