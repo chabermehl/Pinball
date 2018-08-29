@@ -71,6 +71,7 @@ public class GameManager extends Application {
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
         window.setFullScreen(true);
+        window.show();
 
     }
 
@@ -87,7 +88,9 @@ public class GameManager extends Application {
         System.out.println(rows);
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
-                board[i][j].setState(false);
+                Tile tile = new Tile(false);
+                tile.setState(false);
+                board[j][i] = tile;
             }
         }
     }
@@ -96,6 +99,7 @@ public class GameManager extends Application {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Button btn = new Button();
+                btn.setPrefSize(100,100);
                 if(board[i][j].getState()) {
                     btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
                 } else {
