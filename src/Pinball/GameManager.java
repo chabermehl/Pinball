@@ -13,18 +13,22 @@ import javafx.animation.AnimationTimer;
 
 public class GameManager extends Application {
 
+
+
     private Stage window;
     private Timer timer;
     public Label timeLabel;
-    Display display = new Display(100, 100, 8, 5);
+    private Display display = new Display(500, 800, 8, 5);
+
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
+    private Button[][] boardTile = new Button[display.getBoardRows()][display.getBoardColumns()];
 
     public static void main(String[] args) {
         launch(args);
     }
 
 
-    private void start(Stage primaryStage) {
+    public void start(Stage primaryStage) {
         window = primaryStage;
         window.setTitle("Pinball");
         gameController();
@@ -41,6 +45,8 @@ public class GameManager extends Application {
         timer = new Timer();
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
+        boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
+
 
         Label totalscore = new Label();
         totalscore.setText("thanks wesley");
@@ -49,9 +55,9 @@ public class GameManager extends Application {
         Button reset = new Button("RESET");
         Button play = new Button("PLAY");
 
-        for (int i = 0; i < display.getBoardColumns(); i++) {
-            for (int j = 0; j < display.getBoardRows(); j++) {
-                gameTile.add(board[i][j], i, j);
+        for (int i = 0; i < display.getBoardRows(); i++) {
+            for (int j = 0; j < display.getBoardColumns(); j++) {
+                gameTile.add(boardTile[i][j], j, i);
             }
         }
     }
@@ -71,5 +77,20 @@ public class GameManager extends Application {
                 board[i][j].setState(false);
             }
         }
+    }
+
+    private Button[][] buildBoard(int rows, int cols) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Button btn = new Button();
+                if(board[i][j].getState()) {
+                    btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
+                } else {
+                    btn.setStyle("-fx-background-color: blue;" + "-fx-border-color: black;");
+                }
+                boardTile[i][j] = btn;
+            }
+        }
+        return boardTile;
     }
 }
