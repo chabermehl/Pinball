@@ -1,11 +1,16 @@
 package Pinball;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Ball extends Circle {
 
-    public Ball(int x, int y) {
+    Display display;
+
+    public Ball(Display display) {
         super(10);
+        setFill(Color.RED);
+        this.display = display;
     }
 
     public void reset() {
