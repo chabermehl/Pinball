@@ -5,7 +5,7 @@ import javafx.scene.shape.Circle;
 
 public class Ball extends Circle {
 
-    Display display;
+    private Display display;
 
     public Ball(Display display) {
         super(10);
