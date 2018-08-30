@@ -72,9 +72,9 @@ public class GameManager extends Application {
         buttonsbois.setAlignment(Pos.CENTER);
         rootPane.add(buttonsbois, 0, 2);
 
-        play.setOnMouseReleased(event ->{
+/*        play.setOnMouseReleased(event ->{
 
-        });
+        });*/
 
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
