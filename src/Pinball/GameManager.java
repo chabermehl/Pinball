@@ -3,9 +3,10 @@ package Pinball;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -33,17 +34,22 @@ public class GameManager extends Application {
         gameController();
     }
 
-
     private void gameController() {
         Scene gameScene;
-        BorderPane rootPane = new BorderPane();
+        GridPane rootPane = new GridPane();
         GridPane gameTile = new GridPane();
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
 
-        Score score = new Score(0);
+        Canvas canvas = new Canvas(display.getBoardWidth(), display.getBoardHeight()+150);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        gc.setFill(Color.GRAY);
+        gc.setStroke(Color.BLACK);
+        gc.fillRect(0,display.getBoardHeight()+1,display.getBoardWidth(),150);
+
+        Score score = new Score(0);
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
 
@@ -60,16 +66,15 @@ public class GameManager extends Application {
         buttonsbois.getChildren().add(reset);
         buttonsbois.getChildren().add(totalscore);
         buttonsbois.getChildren().add(play);
-        buttonsbois.setAlignment(Pos.BOTTOM_CENTER);
-        rootPane.setBottom(buttonsbois);
 
-        gameTile.setAlignment(Pos.CENTER);
-        rootPane.setCenter(gameTile);
+        rootPane.add(gameTile,0,0);
+        buttonsbois.setAlignment(Pos.CENTER);
+        rootPane.add(buttonsbois,0,1);
+
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
         window.setFullScreen(false);
         window.show();
-
     }
 
     private void fillBoard(int rows, int cols) {
