@@ -27,7 +27,7 @@ public class GameManager extends Application {
         launch(args);
     }
 
-
+    @Override
     public void start(Stage primaryStage) {
         window = primaryStage;
         window.setTitle("Pinball");
@@ -44,9 +44,10 @@ public class GameManager extends Application {
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
 
+        Score score = new Score(0);
 
         Label totalscore = new Label();
-        totalscore.setText("thanks wesley");
+        totalscore.setText("" + score.getCurrentValue());
 
         HBox buttonsbois = new HBox(3);
         Button reset = new Button("RESET");
