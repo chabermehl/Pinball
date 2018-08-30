@@ -17,11 +17,11 @@ public class Ball extends Circle {
     }
 
     public int getLocationX() {
-        return this.x;
+        return 0;
     }
 
     public int getLocationY() {
-        return this.y;
+        return 0;
     }
 
     public void setInPlay() {
