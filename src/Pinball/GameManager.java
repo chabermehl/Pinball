@@ -3,8 +3,6 @@ package Pinball;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -18,7 +16,7 @@ public class GameManager extends Application {
 
 
     private Stage window;
-    private Display display = new Display(250, 400, 8, 5);
+    private Display display = new Display(271, 400, 8, 5);
 
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
@@ -42,12 +40,14 @@ public class GameManager extends Application {
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
 
-        Canvas canvas = new Canvas(display.getBoardWidth(), display.getBoardHeight()+150);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+       /* Canvas canvas = new Canvas(display.getBoardWidth(), display.getBoardHeight()+150);
+        GraphicsContext gc = canvas.getGraphicsContext2D();*/
 
-        gc.setFill(Color.GRAY);
-        gc.setStroke(Color.BLACK);
-        gc.fillRect(0,display.getBoardHeight()+1,display.getBoardWidth(),150);
+        window.setMaxWidth(display.getBoardWidth());
+
+        Rectangle grayRect = new Rectangle(window.getMaxWidth(), 20);
+        grayRect.setStroke(Color.BLACK);
+        grayRect.setFill(Color.GRAY);
 
         Score score = new Score(0);
         Label totalscore = new Label();
@@ -56,6 +56,8 @@ public class GameManager extends Application {
         HBox buttonsbois = new HBox(3);
         Button reset = new Button("RESET");
         Button play = new Button("PLAY");
+
+        //play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
 
         for (int i = 0; i < display.getBoardRows(); i++) {
             for (int j = 0; j < display.getBoardColumns(); j++) {
@@ -67,9 +69,17 @@ public class GameManager extends Application {
         buttonsbois.getChildren().add(totalscore);
         buttonsbois.getChildren().add(play);
 
-        rootPane.add(gameTile,0,0);
+        rootPane.add(gameTile, 0, 0);
+        rootPane.add(grayRect, 0, 1);
         buttonsbois.setAlignment(Pos.CENTER);
-        rootPane.add(buttonsbois,0,1);
+        rootPane.add(buttonsbois, 0, 2);
+
+/*        reset.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });*/
 
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
@@ -104,11 +114,9 @@ public class GameManager extends Application {
             for (int j = 0; j < cols; j++) {
                 Rectangle rect = new Rectangle(50, 50);
                 if (board[i][j].getState()) {
-                    //rect.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
                     rect.setFill(Color.YELLOW);
                     rect.setStroke(Color.BLACK);
                 } else {
-                    //rect.setStyle("-fx-background-color: blue;" + "-fx-border-color: black;");
                     rect.setFill(Color.BLUE);
                     rect.setStroke(Color.BLACK);
                 }
