@@ -8,20 +8,19 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.Timer;
 
 public class GameManager extends Application {
 
 
     private Stage window;
-    private Timer timer;
-    public Label timeLabel;
-    private Display display = new Display(500, 800, 8, 5);
+    private Display display = new Display(250, 400, 8, 5);
 
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
-    private Button[][] boardTile = new Button[display.getBoardRows()][display.getBoardColumns()];
+    private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
 
     public static void main(String[] args) {
         launch(args);
@@ -39,7 +38,6 @@ public class GameManager extends Application {
         Scene gameScene;
         BorderPane rootPane = new BorderPane();
         GridPane gameTile = new GridPane();
-        timer = new Timer();
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
@@ -96,17 +94,20 @@ public class GameManager extends Application {
         }
     }
 
-    private Button[][] buildBoard(int rows, int cols) {
+    private Rectangle[][] buildBoard(int rows, int cols) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                Button btn = new Button();
-                btn.setPrefSize(50, 50);
+                Rectangle rect = new Rectangle(50, 50);
                 if (board[i][j].getState()) {
-                    btn.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
+                    //rect.setStyle("-fx-background-color: yellow;" + "-fx-border-color: black;");
+                    rect.setFill(Color.YELLOW);
+                    rect.setStroke(Color.BLACK);
                 } else {
-                    btn.setStyle("-fx-background-color: blue;" + "-fx-border-color: black;");
+                    //rect.setStyle("-fx-background-color: blue;" + "-fx-border-color: black;");
+                    rect.setFill(Color.BLUE);
+                    rect.setStroke(Color.BLACK);
                 }
-                boardTile[i][j] = btn;
+                boardTile[i][j] = rect;
             }
         }
         return boardTile;
