@@ -40,9 +40,6 @@ public class GameManager extends Application {
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
 
-       /* Canvas canvas = new Canvas(display.getBoardWidth(), display.getBoardHeight()+150);
-        GraphicsContext gc = canvas.getGraphicsContext2D();*/
-
         window.setMaxWidth(display.getBoardWidth());
 
         Rectangle grayRect = new Rectangle(window.getMaxWidth(), 20);
@@ -75,12 +72,9 @@ public class GameManager extends Application {
         buttonsbois.setAlignment(Pos.CENTER);
         rootPane.add(buttonsbois, 0, 2);
 
-/*        reset.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        play.setOnMouseReleased(event ->{
 
-            }
-        });*/
+        });
 
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
