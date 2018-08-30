@@ -4,12 +4,8 @@ import javafx.scene.shape.Circle;
 
 public class Ball extends Circle {
 
-    private int x;
-    private int y;
-
     public Ball(int x, int y) {
-        this.x = x;
-        this.y = y;
+        super(10);
     }
 
     public void reset() {
