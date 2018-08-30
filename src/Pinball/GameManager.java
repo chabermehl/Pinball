@@ -58,6 +58,7 @@ public class GameManager extends Application {
         Button play = new Button("PLAY");
 
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
+        reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
 
         for (int i = 0; i < display.getBoardRows(); i++) {
             for (int j = 0; j < display.getBoardColumns(); j++) {
