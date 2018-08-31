@@ -1,3 +1,9 @@
+/*
+ * @author Charles Habermehl
+ * CS 351
+ * 8/31/18
+ * Pinball
+ */
 package Pinball;
 
 import javafx.animation.AnimationTimer;
@@ -41,8 +47,6 @@ public class GameManager extends Application {
     private double dx;
     private double dy;
 
-    private boolean inStart = true;
-
 
     public static void main(String[] args) {
         launch(args);
@@ -55,6 +59,11 @@ public class GameManager extends Application {
         gameController();
     }
 
+    /**
+     * Main function
+     * Controls GUI and has all the action handlers
+     * pretty much all functions, little to no logic
+     */
     private void gameController() {
         Circle ball = new Circle(10);
         ball.setFill(Color.RED);
@@ -68,7 +77,6 @@ public class GameManager extends Application {
         grayRect.setFill(Color.GRAY);
 
         Label totalscore = new Label();
-        totalscore.setText("" + score.getCurrentValue());
 
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
@@ -112,12 +120,20 @@ public class GameManager extends Application {
             @Override
             public void handle(long now) {
                 move(ball);
-                checkCollision(ball, display.getBoardRows(), display.getBoardColumns());
+                totalscore.setText("" + score.getCurrentValue());
+                checkCollision(ball);
+
             }
         };
         animationTimer.start();
     }
 
+    /**
+     * picks 3 random point squares on game board
+     *
+     * @param rows number of rows in the board
+     * @param cols number of cols in the board
+     */
     private void fillBoard(int rows, int cols) {
         int randCount = 0;
         while (randCount < 3) {
@@ -130,16 +146,29 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * fills pre allocated empty board
+     *
+     * @param rows number of rows in the board
+     * @param cols number of cols in the board
+     */
     private void setBoard(int rows, int cols) {
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 Tile tile = new Tile(false);
                 tile.setState(false);
-                board[j][i] = tile;
+                board[i][j] = tile;
             }
         }
     }
 
+    /**
+     * fills game board with rectangle objects that are colored based on state
+     *
+     * @param rows number of rows in the board
+     * @param cols number of columns in the board
+     * @return 2D array of rectangle objects
+     */
     private Rectangle[][] buildBoard(int rows, int cols) {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -157,6 +186,12 @@ public class GameManager extends Application {
         return boardTile;
     }
 
+    /**
+     * calls board making functions and adds them to a gridpane
+     *
+     * @param rows number of rows in the board
+     * @param cols number of columns in the board
+     */
     private void fillGrid(int rows, int cols) {
         setBoard(rows, cols);
         fillBoard(rows, cols);
@@ -169,20 +204,29 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * puts the ball in its initial position
+     *
+     * @param ball circle object
+     */
     private void reset(Circle ball) {
         hitWall = 0;
 
         dx = 0;
         dy = 0;
-        //setStartLocation(ball);
-        ball.setCenterX(100);
-        ball.setCenterY(100);
+        setStartLocation(ball);
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
 
         fillGrid(display.getBoardRows(), display.getBoardColumns());
     }
 
+    /**
+     * handles moving ball and when the ball hits a wall
+     * called in animation timer, direction and velocity are updated every time
+     *
+     * @param ball circle object
+     */
     private void move(Circle ball) {
 
         ball.setCenterX(ball.getCenterX() + dx);
@@ -199,9 +243,11 @@ public class GameManager extends Application {
         if (hitWall >= 3) {
             reset(ball);
         }
-        System.out.println(ball.getCenterX() + "," + ball.getCenterY());
     }
 
+    /**
+     * sets the ball into play at a random direction and velocity
+     */
     private void setInPlay() {
         double velocity = 5;
         Random rand = new Random();
@@ -210,29 +256,43 @@ public class GameManager extends Application {
         dy = velocity * -Math.sin(Math.PI * angle);
     }
 
+    /**
+     * sets the default start location of the ball
+     *
+     * @param ball circle object
+     */
     private void setStartLocation(Circle ball) {
-        ball.setCenterY(display.getBoardHeight() + 10);
+        ball.setCenterY(display.getBoardHeight() - 10);
         ball.setCenterX(127);
     }
 
-    private void checkCollision(Circle ball, int rows, int cols) {
-        boolean pointScore = false;
-        int xIndex = (int)(ball.getCenterX() / 50);
-        int yIndex = (int)(ball.getCenterY() / 50);
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if(board[i][j].getState() && xIndex == i && yIndex == j) {
-                    pointScore = true;
-                }
-                if (pointScore) {
-                    Rectangle rect = new Rectangle(50, 50);
-                    rect.setFill(Color.BLUE);
-                    rect.setStroke(Color.BLACK);
-                    boardTile[i][j] = rect;
-                    score.incrementBy(10);
-                    pointScore = false;
-                }
-            }
+    /**
+     * checks if the ball touches a point square
+     * if it does, increments score by 10 and paints square blue
+     * currently not painting correctly but is scoring correctly
+     *
+     * @param ball circle object
+     */
+    private void checkCollision(Circle ball) {
+        int xIndex = (int) ((ball.getCenterX()) / 50);
+        int yIndex = (int) ((ball.getCenterY()) / 50);
+
+        if (xIndex > 4) {
+            xIndex = 4;
+        }
+        if (yIndex > 7) {
+            yIndex = 7;
+        }
+        if (board[yIndex][xIndex].getState()) {
+            board[yIndex][xIndex].setState(false);
+            Rectangle rect = new Rectangle(50, 50);
+            rect.setStroke(Color.BLACK);
+            rect.setFill(Color.BLUE);
+            boardTile[yIndex][xIndex] = rect;
+            gameTile.add(boardTile[yIndex][xIndex], yIndex, xIndex);
+            score.incrementBy(10);
         }
     }
+
+
 }
