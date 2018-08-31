@@ -58,27 +58,40 @@ public class GameManager extends Application {
     private void gameController() {
         Circle ball = new Circle(10);
         ball.setFill(Color.RED);
+
         Scene gameScene;
+
         window.setMaxWidth(display.getBoardWidth());
+
         Rectangle grayRect = new Rectangle(window.getMaxWidth(), 20);
         grayRect.setStroke(Color.BLACK);
         grayRect.setFill(Color.GRAY);
+
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
+
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
+
         totalscore.setAlignment(Pos.CENTER);
         totalscore.setPrefSize(30, 10);
         totalscore.setStyle("-fx-background-color: black;" + "-fx-text-fill: red;" + "-fx-border-color: black;" + "-fx-font-size: 16px;");
+
         fillGrid(display.getBoardRows(), display.getBoardColumns());
+
         play.setLayoutY(display.getBoardHeight() + 29);
         play.setLayoutX(210);
+
         totalscore.setLayoutY(display.getBoardHeight() + 29);
         totalscore.setLayoutX(127);
+
         reset.setLayoutY(display.getBoardHeight() + 29);
         reset.setLayoutX(10);
+
         grayRect.setY(display.getBoardHeight() + 9);
+
         list.addAll(gameTile, grayRect, ball, play, reset, totalscore);
+
         gameScene = new Scene(root, 260, 500);
         window.setMinHeight(500);
         window.setMinWidth(300);
