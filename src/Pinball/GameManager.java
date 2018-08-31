@@ -27,6 +27,9 @@ public class GameManager extends Application {
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
 
+    private Button reset = new Button("RESET");
+    private Button play = new Button("PLAY");
+
     private int hitWall = 0;
     private double dx;
     private double dy;
@@ -66,8 +69,7 @@ public class GameManager extends Application {
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
 
-        Button reset = new Button("RESET");
-        Button play = new Button("PLAY");
+
 
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
@@ -165,6 +167,7 @@ public class GameManager extends Application {
         dy = 0;
         ball.setCenterX(100);
         ball.setCenterY(100);
+        play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
     }
 
     private void move(Circle ball) {
