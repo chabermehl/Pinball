@@ -9,9 +9,7 @@ public class Ball extends Circle {
 
     private Display display;
 
-    private int hitWall = 0;
-    private double dx;
-    private double dy;
+
 
 
     public Ball(Display display) {
@@ -22,33 +20,9 @@ public class Ball extends Circle {
         setCenterY(100);
     }
 
-    public void reset() {
-        hitWall = 0;
 
-        dx = 0;
-        dy = 0;
-        setCenterX(100);
-        setCenterY(100);
-    }
 
-    public void move(){
 
-        setCenterX(getCenterX() + dx);
-        setCenterY(getCenterY() + dy);
-
-        if(getCenterX() <= 0 || getCenterX() >= display.getBoardWidth()) {
-            dx = -dx;
-            hitWall++;
-        }
-        if(getCenterY() <= 0 || getCenterY() >= display.getBoardHeight()) {
-            dy = -dy;
-            hitWall++;
-        }
-        if(hitWall >= 3) {
-            reset();
-        }
-        System.out.println(getCenterX()+","+getCenterY());
-    }
 
     public int getLocationX() {
         return 0;
@@ -58,13 +32,7 @@ public class Ball extends Circle {
         return 0;
     }
 
-    public void setInPlay() {
-        double velocity = 5;
-        Random rand = new Random();
-        double angle = rand.nextDouble();
-        dx = velocity * Math.cos(Math.PI * angle);
-        dy = velocity * -Math.sin(Math.PI * angle);
-    }
+
 
     public void setOffPlay() {
 
