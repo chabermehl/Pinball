@@ -204,15 +204,12 @@ public class GameManager extends Application {
 
     private void checkCollision(Circle ball, int rows, int cols) {
         boolean pointScore = false;
+        int xIndex = (int)(ball.getCenterX() / 50);
+        int yIndex = (int)(ball.getCenterY() / 50);
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (board[i][j].getState()) {
-                    if ((ball.getCenterX() < (i * 50))
-                            && (ball.getCenterX() > ((i + 1) * 50))
-                            && ((ball.getCenterY() < (j * 50)))
-                            && (ball.getCenterY() > ((i + 1) * 50))) {
-                        pointScore = true;
-                    }
+                if(board[i][j].getState() && xIndex == i && yIndex == j) {
+                    pointScore = true;
                 }
                 if (pointScore) {
                     Rectangle rect = new Rectangle(50, 50);
