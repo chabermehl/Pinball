@@ -45,9 +45,10 @@ public class Ball extends Circle {
             dy = -dy;
             hitWall++;
         }
-        if(hitWall >= 3) {
-            reset();
-        }
+//        if(hitWall >= 3) {
+//            reset();
+//        }
+        System.out.println(getCenterX()+","+getCenterY());
     }
 
     public int getLocationX() {
