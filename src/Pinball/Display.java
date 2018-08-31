@@ -29,24 +29,4 @@ public class Display {
     public int getBoardColumns() {
         return this.boardColumns;
     }
-
-    public void setBallAt() {
-
-    }
-
-    public void setTileColor(int row, int col, boolean state) {
-
-    }
-
-    public void setPlayButton(boolean state) {
-
-    }
-
-    public void setResetButton(boolean state) {
-
-    }
-
-    public void setScoreValue(int value) {
-
-    }
 }
