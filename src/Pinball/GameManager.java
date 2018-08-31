@@ -90,6 +90,8 @@ public class GameManager extends Application {
 
         play.setOnAction(event -> {
             ball.setInPlay();
+            reset.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
+            play.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         });
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
