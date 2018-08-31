@@ -85,7 +85,6 @@ public class GameManager extends Application {
         window.setMinHeight(500);
         window.setMinWidth(300);
         window.setScene(gameScene);
-        window.setFullScreen(false);
         window.show();
 
         play.setOnAction(event -> {
