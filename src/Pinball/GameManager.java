@@ -27,6 +27,8 @@ public class GameManager extends Application {
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
 
+    private GridPane gameTile = new GridPane();
+
     private Button reset = new Button("RESET");
     private Button play = new Button("PLAY");
 
@@ -53,11 +55,11 @@ public class GameManager extends Application {
         Scene gameScene;
         Group root = new Group();
         ObservableList<Node> list = root.getChildren();
-        GridPane gameTile = new GridPane();
 
-        setBoard(display.getBoardRows(), display.getBoardColumns());
-        fillBoard(display.getBoardRows(), display.getBoardColumns());
-        boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
+
+//        setBoard(display.getBoardRows(), display.getBoardColumns());
+//        fillBoard(display.getBoardRows(), display.getBoardColumns());
+//        boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
 
         window.setMaxWidth(display.getBoardWidth());
 
@@ -69,19 +71,13 @@ public class GameManager extends Application {
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
 
-
-
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         totalscore.setAlignment(Pos.CENTER);
         totalscore.setPrefSize(30, 10);
         totalscore.setStyle("-fx-background-color: black;" + "-fx-text-fill: red;" + "-fx-border-color: black;" + "-fx-font-size: 16px;");
 
-        for (int i = 0; i < display.getBoardRows(); i++) {
-            for (int j = 0; j < display.getBoardColumns(); j++) {
-                gameTile.add(boardTile[i][j], j, i);
-            }
-        }
+        fillGrid(display.getBoardRows(), display.getBoardColumns());
 
         play.setLayoutY(display.getBoardHeight() + 29);
         play.setLayoutX(210);
@@ -160,6 +156,18 @@ public class GameManager extends Application {
         return boardTile;
     }
 
+    private void fillGrid(int rows, int cols) {
+        setBoard(rows, cols);
+        fillBoard(rows, cols);
+        boardTile = buildBoard(rows, cols);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                gameTile.add(boardTile[i][j], j, i);
+            }
+        }
+    }
+
     private void reset(Circle ball) {
         hitWall = 0;
 
@@ -169,6 +177,8 @@ public class GameManager extends Application {
         ball.setCenterY(100);
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
+
+        fillGrid(display.getBoardRows(), display.getBoardColumns());
     }
 
     private void move(Circle ball) {
