@@ -8,10 +8,6 @@ public class Score {
         this.score = score;
     }
 
-    public void reset() {
-        this.score = 0;
-    }
-
     public int getCurrentValue() {
         return this.score;
     }
