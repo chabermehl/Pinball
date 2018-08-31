@@ -36,7 +36,7 @@ public class GameManager extends Application {
 
     private void gameController() {
         Ball ball = new Ball(display);
-        ball.setInPlay();
+
 
         Scene gameScene;
         GridPane rootPane = new GridPane();
@@ -82,6 +82,9 @@ public class GameManager extends Application {
         window.setFullScreen(false);
         window.show();
 
+        play.setOnAction(e -> {
+            ball.setInPlay();
+        });
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
