@@ -9,11 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import static java.lang.Math.floor;
 
 
 public class GameManager extends Application {
@@ -25,9 +22,6 @@ public class GameManager extends Application {
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
 
-    double velocity = 5;
-    double dx;
-    double dy;
 
     public static void main(String[] args) {
         launch(args);
@@ -41,12 +35,12 @@ public class GameManager extends Application {
     }
 
     private void gameController() {
+        Ball ball = new Ball(display);
+        ball.setInPlay();
+
         Scene gameScene;
         GridPane rootPane = new GridPane();
         GridPane gameTile = new GridPane();
-
-        Circle ball = new Circle(10);
-        ball.setFill(Color.RED);
 
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
@@ -83,19 +77,19 @@ public class GameManager extends Application {
         rootPane.add(buttonsbois, 0, 2);
         rootPane.getChildren().add(ball);
 
-        AnimationTimer animationTimer  = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                moveBall(ball);
-            }
-        };
-
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
         window.setFullScreen(false);
         window.show();
 
+        AnimationTimer animationTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                ball.move();
+            }
+        };
 
+        animationTimer.start();
     }
 
     private void fillBoard(int rows, int cols) {
@@ -135,30 +129,5 @@ public class GameManager extends Application {
             }
         }
         return boardTile;
-    }
-
-    private void moveBall(Circle ball) {
-        int hitWall = 0;
-        ball.setCenterX(ball.getCenterX() + dx);
-        ball.setCenterY(ball.getCenterY() + dy);
-
-        if(ball.getCenterX() - 1 <= 0 || ball.getCenterX() + 1 >= display.getBoardWidth()) {
-            dx = -dx;
-            hitWall++;
-        }
-        if(ball.getCenterY() - 1 <= 0 || ball.getCenterY() + 1 >= display.getBoardWidth()) {
-            dy = -dy;
-            hitWall++;
-        }
-        if(hitWall == 3) {
-            resetBall(ball);
-        }
-    }
-
-    private void resetBall(Circle ball) {
-        ball.setCenterX(display.getBoardWidth() / 2);
-        ball.setCenterY(display.getBoardHeight() + 10);
-        dx = 0;
-        dy = 0;
     }
 }
