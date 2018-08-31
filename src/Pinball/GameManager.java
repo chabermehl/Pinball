@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -36,6 +37,8 @@ public class GameManager extends Application {
         Scene gameScene;
         GridPane rootPane = new GridPane();
         GridPane gameTile = new GridPane();
+        Circle ball = new Circle(10);
+        ball.setFill(Color.RED);
         setBoard(display.getBoardRows(), display.getBoardColumns());
         fillBoard(display.getBoardRows(), display.getBoardColumns());
         boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
@@ -70,9 +73,7 @@ public class GameManager extends Application {
         buttonsbois.setAlignment(Pos.CENTER);
         rootPane.add(buttonsbois, 0, 2);
 
-/*        play.setOnMouseReleased(event ->{
 
-        });*/
 
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
