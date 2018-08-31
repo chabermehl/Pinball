@@ -1,7 +1,6 @@
 package Pinball;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,19 +12,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
+import static java.lang.Math.floor;
 
 
 public class GameManager extends Application {
 
 
     private Stage window;
-    private Display display = new Display(271, 400, 8, 5);
+    private Display display = new Display(272, 400, 8, 5);
 
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
+
+    double velocity = 5;
+    double dx;
+    double dy;
 
     public static void main(String[] args) {
         launch(args);
@@ -81,31 +83,19 @@ public class GameManager extends Application {
         rootPane.add(buttonsbois, 0, 2);
         rootPane.getChildren().add(ball);
 
+        AnimationTimer animationTimer  = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                moveBall(ball);
+            }
+        };
 
         gameScene = new Scene(rootPane);
         window.setScene(gameScene);
         window.setFullScreen(false);
         window.show();
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<>(){
-            double dx = 5;
-            double dy = 5;
 
-            @Override
-            public void handle(ActionEvent e) {
-                ball.setCenterX(ball.getCenterX() + dx);
-                ball.setCenterY(ball.getCenterY() + dy);
-
-                if(ball.getCenterX() <= (0 + ball.getRadius()) || ball.getCenterX() >= (display.getBoardWidth() - ball.getRadius())) {
-                    dx = -dx;
-                }
-                if(ball.getCenterY() <= (0 + ball.getRadius()) || ball.getCenterY() >= (display.getBoardHeight() - ball.getRadius())) {
-                    dy = -dy;
-                }
-            }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
     }
 
     private void fillBoard(int rows, int cols) {
@@ -145,5 +135,30 @@ public class GameManager extends Application {
             }
         }
         return boardTile;
+    }
+
+    private void moveBall(Circle ball) {
+        int hitWall = 0;
+        ball.setCenterX(ball.getCenterX() + dx);
+        ball.setCenterY(ball.getCenterY() + dy);
+
+        if(ball.getCenterX() - 1 <= 0 || ball.getCenterX() + 1 >= display.getBoardWidth()) {
+            dx = -dx;
+            hitWall++;
+        }
+        if(ball.getCenterY() - 1 <= 0 || ball.getCenterY() + 1 >= display.getBoardWidth()) {
+            dy = -dy;
+            hitWall++;
+        }
+        if(hitWall == 3) {
+            resetBall(ball);
+        }
+    }
+
+    private void resetBall(Circle ball) {
+        ball.setCenterX(display.getBoardWidth() / 2);
+        ball.setCenterY(display.getBoardHeight() + 10);
+        dx = 0;
+        dy = 0;
     }
 }
