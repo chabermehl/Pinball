@@ -67,6 +67,9 @@ public class GameManager extends Application {
 
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
+        totalscore.setAlignment(Pos.CENTER);
+        totalscore.setPrefSize(30,10);
+        totalscore.setStyle("-fx-background-color: black;" + "-fx-text-fill: red;" + "-fx-border-color: black;" + "-fx-font-size: 16px;");
 
         for (int i = 0; i < display.getBoardRows(); i++) {
             for (int j = 0; j < display.getBoardColumns(); j++) {
@@ -74,12 +77,18 @@ public class GameManager extends Application {
             }
         }
 
-        buttonsbois.getChildren().addAll(reset, totalscore, play);
+        //buttonsbois.getChildren().addAll(reset, totalscore, play);
+        play.setLayoutY(display.getBoardHeight() + 29);
+        play.setLayoutX(210);
+
+        totalscore.setLayoutY(display.getBoardHeight() + 29);
+        totalscore.setLayoutX(127);
+
+        reset.setLayoutY(display.getBoardHeight() + 29);
+        reset.setLayoutX(10);
 
         grayRect.setY(display.getBoardHeight() + 9);
-        buttonsbois.setAlignment(Pos.BOTTOM_CENTER);
-
-        list.addAll(gameTile, grayRect, buttonsbois, ball);
+        list.addAll(gameTile, grayRect, ball, play, reset, totalscore);
 
         gameScene = new Scene(root, 260, 500);
         window.setMinHeight(500);
