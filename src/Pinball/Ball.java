@@ -59,7 +59,7 @@ public class Ball extends Circle {
     }
 
     public void setInPlay() {
-        double velocity = 10;
+        double velocity = 5;
         Random rand = new Random();
         double angle = rand.nextDouble();
         dx = velocity * Math.cos(Math.PI * angle);
