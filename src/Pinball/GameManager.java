@@ -36,6 +36,8 @@ public class GameManager extends Application {
     private double dx;
     private double dy;
 
+    private boolean inStart = true;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -113,7 +115,6 @@ public class GameManager extends Application {
                 move(ball);
             }
         };
-
         animationTimer.start();
     }
 
@@ -173,8 +174,7 @@ public class GameManager extends Application {
 
         dx = 0;
         dy = 0;
-        ball.setCenterX(100);
-        ball.setCenterY(100);
+        setStartLocation(ball);
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
 
@@ -206,5 +206,10 @@ public class GameManager extends Application {
         double angle = rand.nextDouble();
         dx = velocity * Math.cos(Math.PI * angle);
         dy = velocity * -Math.sin(Math.PI * angle);
+    }
+
+    private void setStartLocation(Circle ball) {
+        ball.setCenterY(display.getBoardHeight() + 10);
+        ball.setCenterX(127);
     }
 }
