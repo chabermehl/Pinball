@@ -58,11 +58,6 @@ public class GameManager extends Application {
         Group root = new Group();
         ObservableList<Node> list = root.getChildren();
 
-
-//        setBoard(display.getBoardRows(), display.getBoardColumns());
-//        fillBoard(display.getBoardRows(), display.getBoardColumns());
-//        boardTile = buildBoard(display.getBoardRows(), display.getBoardColumns());
-
         window.setMaxWidth(display.getBoardWidth());
 
         Rectangle grayRect = new Rectangle(window.getMaxWidth(), 20);
