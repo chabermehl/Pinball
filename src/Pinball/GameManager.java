@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -29,8 +30,13 @@ public class GameManager extends Application {
 
     private GridPane gameTile = new GridPane();
 
+
+    private Group root = new Group();
+    private ObservableList<Node> list = root.getChildren();
+
     private Button reset = new Button("RESET");
     private Button play = new Button("PLAY");
+    private Score score = new Score(0);
 
     private int hitWall = 0;
     private double dx;
@@ -53,41 +59,27 @@ public class GameManager extends Application {
     private void gameController() {
         Circle ball = new Circle(10);
         ball.setFill(Color.RED);
-
         Scene gameScene;
-        Group root = new Group();
-        ObservableList<Node> list = root.getChildren();
-
         window.setMaxWidth(display.getBoardWidth());
-
         Rectangle grayRect = new Rectangle(window.getMaxWidth(), 20);
         grayRect.setStroke(Color.BLACK);
         grayRect.setFill(Color.GRAY);
-
-        Score score = new Score(0);
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
-
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         totalscore.setAlignment(Pos.CENTER);
         totalscore.setPrefSize(30, 10);
         totalscore.setStyle("-fx-background-color: black;" + "-fx-text-fill: red;" + "-fx-border-color: black;" + "-fx-font-size: 16px;");
-
         fillGrid(display.getBoardRows(), display.getBoardColumns());
-
         play.setLayoutY(display.getBoardHeight() + 29);
         play.setLayoutX(210);
-
         totalscore.setLayoutY(display.getBoardHeight() + 29);
         totalscore.setLayoutX(127);
-
         reset.setLayoutY(display.getBoardHeight() + 29);
         reset.setLayoutX(10);
-
         grayRect.setY(display.getBoardHeight() + 9);
         list.addAll(gameTile, grayRect, ball, play, reset, totalscore);
-
         gameScene = new Scene(root, 260, 500);
         window.setMinHeight(500);
         window.setMinWidth(300);
@@ -108,6 +100,7 @@ public class GameManager extends Application {
             @Override
             public void handle(long now) {
                 move(ball);
+                checkCollision(ball, display.getBoardRows(), display.getBoardColumns());
             }
         };
         animationTimer.start();
@@ -206,5 +199,24 @@ public class GameManager extends Application {
     private void setStartLocation(Circle ball) {
         ball.setCenterY(display.getBoardHeight() + 10);
         ball.setCenterX(127);
+    }
+
+    private void checkCollision(Circle ball, int rows, int cols) {
+        boolean pointScore = false;
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                if(ball.getBoundsInParent().intersects(boardTile[i][j].getBoundsInParent()) && board[i][j].getState()) {
+                    pointScore = true;
+                }
+                if(pointScore) {
+                    Rectangle rect = new Rectangle(50, 50);
+                    rect.setFill(Color.BLUE);
+                    rect.setStroke(Color.BLACK);
+                    boardTile[i][j] = rect;
+                    score.incrementBy(10);
+                    pointScore = false;
+                }
+            }
+        }
     }
 }
