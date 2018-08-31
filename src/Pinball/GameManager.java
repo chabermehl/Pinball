@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.Random;
@@ -207,8 +206,13 @@ public class GameManager extends Application {
         boolean pointScore = false;
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
-                if(ball.getBoundsInParent().intersects(boardTile[i][j].getBoundsInParent()) && board[i][j].getState()) {
-                    pointScore = true;
+                if(board[i][j].getState()) {
+                    if((ball.getCenterX() < (i * 50))
+                        && (ball.getCenterX() > ((i + 1) * 50))
+                        && ((ball.getCenterY() < (j * 50)))
+                        && (ball.getCenterY() > ((i + 1) * 50))) {
+                        pointScore = true;
+                    }
                 }
                 if(pointScore) {
                     Rectangle rect = new Rectangle(50, 50);
