@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -19,7 +20,7 @@ public class GameManager extends Application {
 
 
     private Stage window;
-    private Display display = new Display(272, 400, 8, 5);
+    private Display display = new Display(255, 400, 8, 5);
 
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
@@ -40,6 +41,7 @@ public class GameManager extends Application {
         Ball ball = new Ball(display);
 
         Scene gameScene;
+        BorderPane realRoot = new BorderPane();
         Group root = new Group();
         ObservableList<Node> list = root.getChildren();
         GridPane gameTile = new GridPane();
@@ -72,6 +74,8 @@ public class GameManager extends Application {
         }
 
         buttonsbois.getChildren().addAll(reset, totalscore, play);
+
+        grayRect.setY(display.getBoardHeight() + 9);
 
         list.addAll(gameTile, grayRect, buttonsbois, ball);
 
