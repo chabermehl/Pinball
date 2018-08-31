@@ -9,12 +9,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+
+import java.util.Random;
 
 
 public class GameManager extends Application {
@@ -25,6 +26,10 @@ public class GameManager extends Application {
 
     private Tile[][] board = new Tile[display.getBoardRows()][display.getBoardColumns()];
     private Rectangle[][] boardTile = new Rectangle[display.getBoardRows()][display.getBoardColumns()];
+
+    private int hitWall = 0;
+    private double dx;
+    private double dy;
 
 
     public static void main(String[] args) {
@@ -39,10 +44,10 @@ public class GameManager extends Application {
     }
 
     private void gameController() {
-        Ball ball = new Ball(display);
+        Circle ball = new Circle(10);
+        ball.setFill(Color.RED);
 
         Scene gameScene;
-        BorderPane realRoot = new BorderPane();
         Group root = new Group();
         ObservableList<Node> list = root.getChildren();
         GridPane gameTile = new GridPane();
@@ -67,7 +72,7 @@ public class GameManager extends Application {
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         totalscore.setAlignment(Pos.CENTER);
-        totalscore.setPrefSize(30,10);
+        totalscore.setPrefSize(30, 10);
         totalscore.setStyle("-fx-background-color: black;" + "-fx-text-fill: red;" + "-fx-border-color: black;" + "-fx-font-size: 16px;");
 
         for (int i = 0; i < display.getBoardRows(); i++) {
@@ -95,19 +100,19 @@ public class GameManager extends Application {
         window.show();
 
         play.setOnAction(event -> {
-            ball.setInPlay();
+            setInPlay();
             reset.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
             play.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         });
         reset.setOnAction(event -> {
-            ball.reset();
+            reset(ball);
             play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
             reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         });
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                ball.move();
+                move(ball);
             }
         };
 
@@ -151,5 +156,41 @@ public class GameManager extends Application {
             }
         }
         return boardTile;
+    }
+
+    private void reset(Circle ball) {
+        hitWall = 0;
+
+        dx = 0;
+        dy = 0;
+        ball.setCenterX(100);
+        ball.setCenterY(100);
+    }
+
+    private void move(Circle ball) {
+
+        ball.setCenterX(ball.getCenterX() + dx);
+        ball.setCenterY(ball.getCenterY() + dy);
+
+        if (ball.getCenterX() <= 0 || ball.getCenterX() >= display.getBoardWidth()) {
+            dx = -dx;
+            hitWall++;
+        }
+        if (ball.getCenterY() <= 0 || ball.getCenterY() >= display.getBoardHeight()) {
+            dy = -dy;
+            hitWall++;
+        }
+        if (hitWall >= 3) {
+            reset(ball);
+        }
+        System.out.println(ball.getCenterX() + "," + ball.getCenterY());
+    }
+
+    private void setInPlay() {
+        double velocity = 5;
+        Random rand = new Random();
+        double angle = rand.nextDouble();
+        dx = velocity * Math.cos(Math.PI * angle);
+        dy = velocity * -Math.sin(Math.PI * angle);
     }
 }
