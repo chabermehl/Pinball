@@ -19,8 +19,8 @@ public class Ball extends Circle {
         setFill(Color.RED);
 
         this.display = display;
-
         reset();
+
     }
 
     public void reset() {
@@ -28,8 +28,8 @@ public class Ball extends Circle {
 
         dx = 0;
         dy = 0;
-        setCenterX(136);
-        setCenterY(display.getBoardHeight() + 10);
+        setCenterX(100);
+        setCenterY(100);
     }
 
     public void move(){
@@ -37,11 +37,11 @@ public class Ball extends Circle {
         setCenterX(getCenterX() + dx);
         setCenterY(getCenterY() + dy);
 
-        if(getCenterX() - 1 <= 0 || getCenterX() + 1 >= display.getBoardWidth()) {
+        if(getCenterX() <= 0 || getCenterX() >= display.getBoardWidth()) {
             dx = -dx;
             hitWall++;
         }
-        if(getCenterY() - 1 <= 0 || getCenterY() + 1 >= display.getBoardHeight()) {
+        if(getCenterY() <= 0 || getCenterY() >= display.getBoardHeight()) {
             dy = -dy;
             hitWall++;
         }
@@ -60,7 +60,7 @@ public class Ball extends Circle {
     }
 
     public void setInPlay() {
-        double velocity = 5;
+        double velocity = 10;
         Random rand = new Random();
         double angle = rand.nextDouble();
         dx = velocity * Math.cos(Math.PI * angle);
