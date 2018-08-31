@@ -3,6 +3,7 @@ package Pinball;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -76,10 +77,13 @@ public class GameManager extends Application {
         buttonsbois.getChildren().addAll(reset, totalscore, play);
 
         grayRect.setY(display.getBoardHeight() + 9);
+        buttonsbois.setAlignment(Pos.BOTTOM_CENTER);
 
         list.addAll(gameTile, grayRect, buttonsbois, ball);
 
-        gameScene = new Scene(root);
+        gameScene = new Scene(root, 260, 500);
+        window.setMinHeight(500);
+        window.setMinWidth(300);
         window.setScene(gameScene);
         window.setFullScreen(false);
         window.show();
