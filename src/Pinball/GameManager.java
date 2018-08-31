@@ -162,7 +162,9 @@ public class GameManager extends Application {
 
         dx = 0;
         dy = 0;
-        setStartLocation(ball);
+        //setStartLocation(ball);
+        ball.setCenterX(100);
+        ball.setCenterY(100);
         play.setStyle("-fx-background-color: yellow;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
         reset.setStyle("-fx-background-color: gray;" + "-fx-text-fill: black;" + "-fx-border-color: black;");
 
