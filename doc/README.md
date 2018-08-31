@@ -11,7 +11,6 @@ Features:
     Reset button - resets game with new board
     When a button is active it is yellow.
     Point tile - each point tile is 10 points
-
     Ball automatically resets after hitting the wall 3 times
     Point totals can only be reset by restarting the game
 
