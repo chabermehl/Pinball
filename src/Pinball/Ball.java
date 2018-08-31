@@ -18,8 +18,8 @@ public class Ball extends Circle {
         super(10);
         setFill(Color.RED);
         this.display = display;
-        setStartLocation();
-
+        setCenterX(100);
+        setCenterY(100);
     }
 
     public void reset() {
@@ -27,14 +27,14 @@ public class Ball extends Circle {
 
         dx = 0;
         dy = 0;
-        setLayoutX(100);
-        setLayoutY(100);
+        setCenterX(100);
+        setCenterY(100);
     }
 
     public void move(){
 
         setCenterX(getCenterX() + dx);
-        setCenterX(getCenterY() + dy);
+        setCenterY(getCenterY() + dy);
 
         if(getCenterX() <= 0 || getCenterX() >= display.getBoardWidth()) {
             dx = -dx;
