@@ -61,7 +61,6 @@ public class GameManager extends Application {
         Label totalscore = new Label();
         totalscore.setText("" + score.getCurrentValue());
 
-        HBox buttonsbois = new HBox(3);
         Button reset = new Button("RESET");
         Button play = new Button("PLAY");
 
@@ -77,7 +76,6 @@ public class GameManager extends Application {
             }
         }
 
-        //buttonsbois.getChildren().addAll(reset, totalscore, play);
         play.setLayoutY(display.getBoardHeight() + 29);
         play.setLayoutX(210);
 
