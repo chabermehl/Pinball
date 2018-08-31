@@ -63,9 +63,7 @@ public class GameManager extends Application {
             }
         }
 
-        buttonsbois.getChildren().add(reset);
-        buttonsbois.getChildren().add(totalscore);
-        buttonsbois.getChildren().add(play);
+        buttonsbois.getChildren().addAll(reset, totalscore, play);
 
         rootPane.add(gameTile, 0, 0);
         rootPane.add(grayRect, 0, 1);
