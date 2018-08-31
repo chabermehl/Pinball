@@ -2,7 +2,10 @@ package Pinball;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +42,8 @@ public class GameManager extends Application {
 
 
         Scene gameScene;
-        GridPane rootPane = new GridPane();
+        Group root = new Group();
+        ObservableList<Node> list = root.getChildren();
         GridPane gameTile = new GridPane();
 
         setBoard(display.getBoardRows(), display.getBoardColumns());
@@ -71,18 +75,12 @@ public class GameManager extends Application {
 
         buttonsbois.getChildren().addAll(reset, totalscore, play);
 
-        rootPane.add(gameTile, 0, 0);
-        rootPane.add(grayRect, 0, 1);
-        buttonsbois.setAlignment(Pos.CENTER);
-        rootPane.add(buttonsbois, 0, 2);
-        rootPane.getChildren().add(ball);
-
-        gameScene = new Scene(rootPane);
+        gameScene = new Scene(root);
         window.setScene(gameScene);
         window.setFullScreen(false);
         window.show();
 
-        play.setOnAction(e -> {
+        play.setOnAction(event -> {
             ball.setInPlay();
         });
         AnimationTimer animationTimer = new AnimationTimer() {
