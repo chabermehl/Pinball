@@ -4,7 +4,7 @@ CS 351
 Pinball
 
 Runs from executable jar file on my machine. Is not working on anything else.
-I tried every way of making a jar on the front page of google and no dice.
+I tried every way of making a jar on the first page of google and no dice.
 
 GameManager.java is the entry point.
 
